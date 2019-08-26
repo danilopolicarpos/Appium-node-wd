@@ -1,0 +1,40 @@
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("source-map-support/register");
+
+var _context = _interopRequireDefault(require("./context"));
+
+var _settings = _interopRequireDefault(require("./settings"));
+
+var _timeout = _interopRequireDefault(require("./timeout"));
+
+var _find = _interopRequireDefault(require("./find"));
+
+var _general = _interopRequireDefault(require("./general"));
+
+var _screenshot = _interopRequireDefault(require("./screenshot"));
+
+var _element = _interopRequireDefault(require("./element"));
+
+var _gesture = _interopRequireDefault(require("./gesture"));
+
+var _navigation = _interopRequireDefault(require("./navigation"));
+
+var _execute = _interopRequireDefault(require("./execute"));
+
+var _mobile = _interopRequireDefault(require("./mobile"));
+
+let commands = {};
+Object.assign(commands, _context.default, _settings.default, _timeout.default, _find.default, _general.default, _screenshot.default, _element.default, _gesture.default, _navigation.default, _execute.default, _mobile.default);
+var _default = commands;
+exports.default = _default;require('source-map-support').install();
+
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9jb21tYW5kcy9pbmRleC5qcyJdLCJuYW1lcyI6WyJjb21tYW5kcyIsIk9iamVjdCIsImFzc2lnbiIsImNvbnRleHRDb21tYW5kcyIsInNldHRpbmdzQ21kcyIsInRpbWVvdXRDbWRzIiwiZmluZENtZHMiLCJnZW5lcmFsQ21kcyIsInNjcmVlblNob3RDbWRzIiwiZWxlbWVudENtZHMiLCJnZXN0dXJlQ21kcyIsIm5hdmlnYXRpb25DbWRzIiwiZXhlY3V0ZUNtZHMiLCJtb2JpbGVDbWRzIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7OztBQUFBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUVBLElBQUlBLFFBQVEsR0FBRyxFQUFmO0FBQ0FDLE1BQU0sQ0FBQ0MsTUFBUCxDQUNFRixRQURGLEVBRUVHLGdCQUZGLEVBR0VDLGlCQUhGLEVBSUVDLGdCQUpGLEVBS0VDLGFBTEYsRUFNRUMsZ0JBTkYsRUFPRUMsbUJBUEYsRUFRRUMsZ0JBUkYsRUFTRUMsZ0JBVEYsRUFVRUMsbUJBVkYsRUFXRUMsZ0JBWEYsRUFZRUMsZUFaRjtlQWdCZWIsUSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBjb250ZXh0Q29tbWFuZHMgZnJvbSAnLi9jb250ZXh0JztcbmltcG9ydCBzZXR0aW5nc0NtZHMgZnJvbSAnLi9zZXR0aW5ncyc7XG5pbXBvcnQgdGltZW91dENtZHMgZnJvbSAnLi90aW1lb3V0JztcbmltcG9ydCBmaW5kQ21kcyBmcm9tICcuL2ZpbmQnO1xuaW1wb3J0IGdlbmVyYWxDbWRzIGZyb20gJy4vZ2VuZXJhbCc7XG5pbXBvcnQgc2NyZWVuU2hvdENtZHMgZnJvbSAnLi9zY3JlZW5zaG90JztcbmltcG9ydCBlbGVtZW50Q21kcyBmcm9tICcuL2VsZW1lbnQnO1xuaW1wb3J0IGdlc3R1cmVDbWRzIGZyb20gJy4vZ2VzdHVyZSc7XG5pbXBvcnQgbmF2aWdhdGlvbkNtZHMgZnJvbSAnLi9uYXZpZ2F0aW9uJztcbmltcG9ydCBleGVjdXRlQ21kcyBmcm9tICcuL2V4ZWN1dGUnO1xuaW1wb3J0IG1vYmlsZUNtZHMgZnJvbSAnLi9tb2JpbGUnO1xuXG5sZXQgY29tbWFuZHMgPSB7fTtcbk9iamVjdC5hc3NpZ24oXG4gIGNvbW1hbmRzLFxuICBjb250ZXh0Q29tbWFuZHMsXG4gIHNldHRpbmdzQ21kcyxcbiAgdGltZW91dENtZHMsXG4gIGZpbmRDbWRzLFxuICBnZW5lcmFsQ21kcyxcbiAgc2NyZWVuU2hvdENtZHMsXG4gIGVsZW1lbnRDbWRzLFxuICBnZXN0dXJlQ21kcyxcbiAgbmF2aWdhdGlvbkNtZHMsXG4gIGV4ZWN1dGVDbWRzLFxuICBtb2JpbGVDbWRzLFxuICAvLyBhZGQgb3RoZXIgY29tbWFuZCB0eXBlcyBoZXJlXG4pO1xuXG5leHBvcnQgZGVmYXVsdCBjb21tYW5kcztcbiJdLCJmaWxlIjoibGliL2NvbW1hbmRzL2luZGV4LmpzIiwic291cmNlUm9vdCI6Ii4uLy4uLy4uIn0=

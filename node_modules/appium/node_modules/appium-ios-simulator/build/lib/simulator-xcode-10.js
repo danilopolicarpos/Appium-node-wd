@@ -1,0 +1,48 @@
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("source-map-support/register");
+
+var _simulatorXcode = _interopRequireDefault(require("./simulator-xcode-9.3"));
+
+var _nodeSimctl = require("node-simctl");
+
+var _appiumSupport = require("appium-support");
+
+class SimulatorXcode10 extends _simulatorXcode.default {
+  constructor(udid, xcodeVersion) {
+    super(udid, xcodeVersion);
+  }
+
+  async isAppInstalled(bundleId) {
+    try {
+      const appContainer = await (0, _nodeSimctl.getAppContainer)(this.udid, bundleId, false);
+
+      if (!appContainer.endsWith('.app')) {
+        return false;
+      }
+
+      return await _appiumSupport.fs.exists(appContainer);
+    } catch (err) {
+      try {
+        const info = await (0, _nodeSimctl.appInfo)(this.udid, bundleId);
+        return info.includes('ApplicationType');
+      } catch (ign) {}
+    }
+
+    return false;
+  }
+
+}
+
+var _default = SimulatorXcode10;
+exports.default = _default;require('source-map-support').install();
+
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9zaW11bGF0b3IteGNvZGUtMTAuanMiXSwibmFtZXMiOlsiU2ltdWxhdG9yWGNvZGUxMCIsIlNpbXVsYXRvclhjb2RlOTMiLCJjb25zdHJ1Y3RvciIsInVkaWQiLCJ4Y29kZVZlcnNpb24iLCJpc0FwcEluc3RhbGxlZCIsImJ1bmRsZUlkIiwiYXBwQ29udGFpbmVyIiwiZW5kc1dpdGgiLCJmcyIsImV4aXN0cyIsImVyciIsImluZm8iLCJpbmNsdWRlcyIsImlnbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7QUFBQTs7QUFDQTs7QUFDQTs7QUFHQSxNQUFNQSxnQkFBTixTQUErQkMsdUJBQS9CLENBQWdEO0FBQzlDQyxFQUFBQSxXQUFXLENBQUVDLElBQUYsRUFBUUMsWUFBUixFQUFzQjtBQUMvQixVQUFNRCxJQUFOLEVBQVlDLFlBQVo7QUFDRDs7QUFTRCxRQUFNQyxjQUFOLENBQXNCQyxRQUF0QixFQUFnQztBQUM5QixRQUFJO0FBQ0YsWUFBTUMsWUFBWSxHQUFHLE1BQU0saUNBQWdCLEtBQUtKLElBQXJCLEVBQTJCRyxRQUEzQixFQUFxQyxLQUFyQyxDQUEzQjs7QUFDQSxVQUFJLENBQUNDLFlBQVksQ0FBQ0MsUUFBYixDQUFzQixNQUF0QixDQUFMLEVBQW9DO0FBQ2xDLGVBQU8sS0FBUDtBQUNEOztBQUNELGFBQU8sTUFBTUMsa0JBQUdDLE1BQUgsQ0FBVUgsWUFBVixDQUFiO0FBQ0QsS0FORCxDQU1FLE9BQU9JLEdBQVAsRUFBWTtBQUlaLFVBQUk7QUFDRixjQUFNQyxJQUFJLEdBQUcsTUFBTSx5QkFBUSxLQUFLVCxJQUFiLEVBQW1CRyxRQUFuQixDQUFuQjtBQUNBLGVBQU9NLElBQUksQ0FBQ0MsUUFBTCxDQUFjLGlCQUFkLENBQVA7QUFDRCxPQUhELENBR0UsT0FBT0MsR0FBUCxFQUFZLENBQUU7QUFDakI7O0FBQ0QsV0FBTyxLQUFQO0FBQ0Q7O0FBN0I2Qzs7ZUFnQ2pDZCxnQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBTaW11bGF0b3JYY29kZTkzIGZyb20gJy4vc2ltdWxhdG9yLXhjb2RlLTkuMyc7XG5pbXBvcnQgeyBnZXRBcHBDb250YWluZXIsIGFwcEluZm8gfSBmcm9tICdub2RlLXNpbWN0bCc7XG5pbXBvcnQgeyBmcyB9IGZyb20gJ2FwcGl1bS1zdXBwb3J0JztcblxuXG5jbGFzcyBTaW11bGF0b3JYY29kZTEwIGV4dGVuZHMgU2ltdWxhdG9yWGNvZGU5MyB7XG4gIGNvbnN0cnVjdG9yICh1ZGlkLCB4Y29kZVZlcnNpb24pIHtcbiAgICBzdXBlcih1ZGlkLCB4Y29kZVZlcnNpb24pO1xuICB9XG5cbiAgLyoqXG4gICAqIFZlcmlmeSB3aGV0aGVyIHRoZSBwYXJ0aWN1bGFyIGFwcGxpY2F0aW9uIGlzIGluc3RhbGxlZCBvbiBTaW11bGF0b3IuXG4gICAqIEBvdmVycmlkZVxuICAgKlxuICAgKiBAcGFyYW0ge3N0cmluZ30gYnVuZGxlSWQgLSBUaGUgYnVuZGxlIGlkIG9mIHRoZSBhcHBsaWNhdGlvbiB0byBiZSBjaGVja2VkLlxuICAgKiBAcmV0dXJuIHtib29sZWFufSBUcnVlIGlmIHRoZSBnaXZlbiBhcHBsaWNhdGlvbiBpcyBpbnN0YWxsZWQuXG4gICAqL1xuICBhc3luYyBpc0FwcEluc3RhbGxlZCAoYnVuZGxlSWQpIHtcbiAgICB0cnkge1xuICAgICAgY29uc3QgYXBwQ29udGFpbmVyID0gYXdhaXQgZ2V0QXBwQ29udGFpbmVyKHRoaXMudWRpZCwgYnVuZGxlSWQsIGZhbHNlKTtcbiAgICAgIGlmICghYXBwQ29udGFpbmVyLmVuZHNXaXRoKCcuYXBwJykpIHtcbiAgICAgICAgcmV0dXJuIGZhbHNlO1xuICAgICAgfVxuICAgICAgcmV0dXJuIGF3YWl0IGZzLmV4aXN0cyhhcHBDb250YWluZXIpO1xuICAgIH0gY2F0Y2ggKGVycikge1xuICAgICAgLy8gZ2V0X2FwcF9jb250YWluZXIgc3ViY29tbWFuZCBmYWlscyBmb3Igc3lzdGVtIGFwcGxpY2F0aW9ucyxcbiAgICAgIC8vIHNvIHdlIHRyeSB0aGUgaGlkZGVuIGFwcGluZm8gc3ViY29tbWFuZCwgd2hpY2ggcHJpbnRzIGNvcnJlY3QgaW5mbyBmb3JcbiAgICAgIC8vIHN5c3RlbS9oaWRkZW4gYXBwc1xuICAgICAgdHJ5IHtcbiAgICAgICAgY29uc3QgaW5mbyA9IGF3YWl0IGFwcEluZm8odGhpcy51ZGlkLCBidW5kbGVJZCk7XG4gICAgICAgIHJldHVybiBpbmZvLmluY2x1ZGVzKCdBcHBsaWNhdGlvblR5cGUnKTtcbiAgICAgIH0gY2F0Y2ggKGlnbikge31cbiAgICB9XG4gICAgcmV0dXJuIGZhbHNlO1xuICB9XG59XG5cbmV4cG9ydCBkZWZhdWx0IFNpbXVsYXRvclhjb2RlMTA7XG4iXSwiZmlsZSI6ImxpYi9zaW11bGF0b3IteGNvZGUtMTAuanMiLCJzb3VyY2VSb290IjoiLi4vLi4ifQ==

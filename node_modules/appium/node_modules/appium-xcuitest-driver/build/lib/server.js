@@ -1,0 +1,33 @@
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.startServer = startServer;
+
+require("source-map-support/register");
+
+var _logger = _interopRequireDefault(require("./logger"));
+
+var _appiumBaseDriver = require("appium-base-driver");
+
+var _driver = require("./driver");
+
+async function startServer(port, address) {
+  let driver = new _driver.XCUITestDriver({
+    port,
+    address
+  });
+  let router = (0, _appiumBaseDriver.routeConfiguringFunction)(driver);
+  let server = await (0, _appiumBaseDriver.server)(router, port, address);
+  server.driver = driver;
+
+  _logger.default.info(`XCUITestDriver server listening on http://${address}:${port}`);
+
+  return server;
+}require('source-map-support').install();
+
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9zZXJ2ZXIuanMiXSwibmFtZXMiOlsic3RhcnRTZXJ2ZXIiLCJwb3J0IiwiYWRkcmVzcyIsImRyaXZlciIsIlhDVUlUZXN0RHJpdmVyIiwicm91dGVyIiwic2VydmVyIiwibG9nIiwiaW5mbyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7QUFBQTs7QUFDQTs7QUFDQTs7QUFFQSxlQUFlQSxXQUFmLENBQTRCQyxJQUE1QixFQUFrQ0MsT0FBbEMsRUFBMkM7QUFDekMsTUFBSUMsTUFBTSxHQUFHLElBQUlDLHNCQUFKLENBQW1CO0FBQUNILElBQUFBLElBQUQ7QUFBT0MsSUFBQUE7QUFBUCxHQUFuQixDQUFiO0FBQ0EsTUFBSUcsTUFBTSxHQUFHLGdEQUF5QkYsTUFBekIsQ0FBYjtBQUNBLE1BQUlHLE1BQU0sR0FBRyxNQUFNLDhCQUFXRCxNQUFYLEVBQW1CSixJQUFuQixFQUF5QkMsT0FBekIsQ0FBbkI7QUFFQUksRUFBQUEsTUFBTSxDQUFDSCxNQUFQLEdBQWdCQSxNQUFoQjs7QUFDQUksa0JBQUlDLElBQUosQ0FBVSw2Q0FBNENOLE9BQVEsSUFBR0QsSUFBSyxFQUF0RTs7QUFDQSxTQUFPSyxNQUFQO0FBQ0QiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgbG9nIGZyb20gJy4vbG9nZ2VyJztcbmltcG9ydCB7IHNlcnZlciBhcyBiYXNlU2VydmVyLCByb3V0ZUNvbmZpZ3VyaW5nRnVuY3Rpb24gfSBmcm9tICdhcHBpdW0tYmFzZS1kcml2ZXInO1xuaW1wb3J0IHsgWENVSVRlc3REcml2ZXIgfSBmcm9tICcuL2RyaXZlcic7XG5cbmFzeW5jIGZ1bmN0aW9uIHN0YXJ0U2VydmVyIChwb3J0LCBhZGRyZXNzKSB7XG4gIGxldCBkcml2ZXIgPSBuZXcgWENVSVRlc3REcml2ZXIoe3BvcnQsIGFkZHJlc3N9KTtcbiAgbGV0IHJvdXRlciA9IHJvdXRlQ29uZmlndXJpbmdGdW5jdGlvbihkcml2ZXIpO1xuICBsZXQgc2VydmVyID0gYXdhaXQgYmFzZVNlcnZlcihyb3V0ZXIsIHBvcnQsIGFkZHJlc3MpO1xuICAvLyBtYWtlIHRoZSBkcml2ZXIgYXZhaWxhYmxlXG4gIHNlcnZlci5kcml2ZXIgPSBkcml2ZXI7XG4gIGxvZy5pbmZvKGBYQ1VJVGVzdERyaXZlciBzZXJ2ZXIgbGlzdGVuaW5nIG9uIGh0dHA6Ly8ke2FkZHJlc3N9OiR7cG9ydH1gKTtcbiAgcmV0dXJuIHNlcnZlcjtcbn1cblxuZXhwb3J0IHsgc3RhcnRTZXJ2ZXIgfTtcbiJdLCJmaWxlIjoibGliL3NlcnZlci5qcyIsInNvdXJjZVJvb3QiOiIuLi8uLiJ9

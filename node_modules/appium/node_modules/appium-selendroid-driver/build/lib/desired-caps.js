@@ -1,0 +1,33 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("source-map-support/register");
+
+var _appiumAndroidDriver = require("appium-android-driver");
+
+let selendroidCapConstraints = {
+  app: {
+    presence: true,
+    isString: true
+  },
+  automationName: {
+    isString: true
+  },
+  browserName: {
+    isString: true
+  },
+  launchTimeout: {
+    isNumber: true
+  }
+};
+let desiredCapConstraints = {};
+Object.assign(desiredCapConstraints, selendroidCapConstraints, _appiumAndroidDriver.commonCapConstraints);
+var _default = desiredCapConstraints;
+exports.default = _default;require('source-map-support').install();
+
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9kZXNpcmVkLWNhcHMuanMiXSwibmFtZXMiOlsic2VsZW5kcm9pZENhcENvbnN0cmFpbnRzIiwiYXBwIiwicHJlc2VuY2UiLCJpc1N0cmluZyIsImF1dG9tYXRpb25OYW1lIiwiYnJvd3Nlck5hbWUiLCJsYXVuY2hUaW1lb3V0IiwiaXNOdW1iZXIiLCJkZXNpcmVkQ2FwQ29uc3RyYWludHMiLCJPYmplY3QiLCJhc3NpZ24iLCJjb21tb25DYXBDb25zdHJhaW50cyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBQUE7O0FBRUEsSUFBSUEsd0JBQXdCLEdBQUc7QUFDN0JDLEVBQUFBLEdBQUcsRUFBRTtBQUNIQyxJQUFBQSxRQUFRLEVBQUUsSUFEUDtBQUVIQyxJQUFBQSxRQUFRLEVBQUU7QUFGUCxHQUR3QjtBQUs3QkMsRUFBQUEsY0FBYyxFQUFFO0FBQ2RELElBQUFBLFFBQVEsRUFBRTtBQURJLEdBTGE7QUFRN0JFLEVBQUFBLFdBQVcsRUFBRTtBQUNYRixJQUFBQSxRQUFRLEVBQUU7QUFEQyxHQVJnQjtBQVc3QkcsRUFBQUEsYUFBYSxFQUFFO0FBQ2JDLElBQUFBLFFBQVEsRUFBRTtBQURHO0FBWGMsQ0FBL0I7QUFnQkEsSUFBSUMscUJBQXFCLEdBQUcsRUFBNUI7QUFDQUMsTUFBTSxDQUFDQyxNQUFQLENBQWNGLHFCQUFkLEVBQXFDUix3QkFBckMsRUFDY1cseUNBRGQ7ZUFHZUgscUIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBjb21tb25DYXBDb25zdHJhaW50cyB9IGZyb20gJ2FwcGl1bS1hbmRyb2lkLWRyaXZlcic7XG5cbmxldCBzZWxlbmRyb2lkQ2FwQ29uc3RyYWludHMgPSB7XG4gIGFwcDoge1xuICAgIHByZXNlbmNlOiB0cnVlLFxuICAgIGlzU3RyaW5nOiB0cnVlLFxuICB9LFxuICBhdXRvbWF0aW9uTmFtZToge1xuICAgIGlzU3RyaW5nOiB0cnVlLFxuICB9LFxuICBicm93c2VyTmFtZToge1xuICAgIGlzU3RyaW5nOiB0cnVlLFxuICB9LFxuICBsYXVuY2hUaW1lb3V0OiB7XG4gICAgaXNOdW1iZXI6IHRydWUsXG4gIH0sXG59O1xuXG5sZXQgZGVzaXJlZENhcENvbnN0cmFpbnRzID0ge307XG5PYmplY3QuYXNzaWduKGRlc2lyZWRDYXBDb25zdHJhaW50cywgc2VsZW5kcm9pZENhcENvbnN0cmFpbnRzLFxuICAgICAgICAgICAgICBjb21tb25DYXBDb25zdHJhaW50cyk7XG5cbmV4cG9ydCBkZWZhdWx0IGRlc2lyZWRDYXBDb25zdHJhaW50cztcbiJdLCJmaWxlIjoibGliL2Rlc2lyZWQtY2Fwcy5qcyIsInNvdXJjZVJvb3QiOiIuLi8uLiJ9

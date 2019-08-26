@@ -1,0 +1,119 @@
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getConnectedDevices = getConnectedDevices;
+exports.runRealDeviceReset = runRealDeviceReset;
+exports.installToRealDevice = installToRealDevice;
+exports.getRealDeviceObj = getRealDeviceObj;
+
+require("source-map-support/register");
+
+var _teen_process = require("teen_process");
+
+var _iosDeploy = _interopRequireDefault(require("./ios-deploy"));
+
+var _logger = _interopRequireDefault(require("./logger"));
+
+async function getConnectedDevices() {
+  try {
+    let {
+      stdout
+    } = await (0, _teen_process.exec)('idevice_id', ['-l']);
+    return stdout.trim().split('\n');
+  } catch (err) {
+    if (!err.message.includes(`Command 'idevice_id' not found`)) {
+      throw err;
+    }
+
+    const msg = `The 'idevice_id' program is not installed. If you are running ` + `a real device test it is necessary. Install with 'brew install ` + `libimobiledevice --HEAD'`;
+
+    _logger.default.warn(msg);
+
+    return [];
+  }
+}
+
+async function resetRealDevice(device, opts) {
+  if (!opts.bundleId || !opts.fullReset) {
+    return;
+  }
+
+  let bundleId = opts.bundleId;
+
+  _logger.default.debug(`Reset: fullReset requested. Will try to uninstall the app '${bundleId}'.`);
+
+  if (!(await device.isAppInstalled(bundleId))) {
+    _logger.default.debug('Reset: app not installed. No need to uninstall');
+
+    return;
+  }
+
+  try {
+    await device.remove(bundleId);
+  } catch (err) {
+    _logger.default.error(`Reset: could not remove '${bundleId}' from device: ${err.message}`);
+
+    throw err;
+  }
+
+  _logger.default.debug(`Reset: removed '${bundleId}'`);
+}
+
+async function runRealDeviceReset(device, opts) {
+  if (!opts.noReset || opts.fullReset) {
+    _logger.default.debug('Reset: running ios real device reset flow');
+
+    if (!opts.noReset) {
+      await resetRealDevice(device, opts);
+    }
+  } else {
+    _logger.default.debug('Reset: fullReset not set. Leaving as is');
+  }
+}
+
+async function installToRealDevice(device, app, bundleId, noReset = true) {
+  if (!device.udid || !app) {
+    _logger.default.debug('No device id or app, not installing to real device.');
+
+    return;
+  }
+
+  if (await device.isAppInstalled(bundleId)) {
+    if (noReset) {
+      _logger.default.debug(`App '${bundleId}' is already installed. No need to reinstall.`);
+
+      return;
+    }
+
+    _logger.default.debug(`Reset requested. Removing app with id '${bundleId}' from the device`);
+
+    await device.remove(bundleId);
+  }
+
+  _logger.default.debug(`Installing '${app}' on device with UUID '${device.udid}'...`);
+
+  await device.install(app);
+
+  _logger.default.debug('The app has been installed successfully.');
+}
+
+async function getRealDeviceObj(udid) {
+  _logger.default.debug(`Creating iDevice object with udid '${udid}'`);
+
+  try {
+    let device = new _iosDeploy.default(udid);
+    await device.checkStatus();
+    return device;
+  } catch (e) {
+    let msg = 'Could not initialize ios-deploy make sure it is installed ' + '(npm install -g ios-deploy) and works on your system.';
+
+    _logger.default.errorAndThrow(msg);
+  }
+}require('source-map-support').install();
+
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9yZWFsLWRldmljZS1tYW5hZ2VtZW50LmpzIl0sIm5hbWVzIjpbImdldENvbm5lY3RlZERldmljZXMiLCJzdGRvdXQiLCJ0cmltIiwic3BsaXQiLCJlcnIiLCJtZXNzYWdlIiwiaW5jbHVkZXMiLCJtc2ciLCJsb2ciLCJ3YXJuIiwicmVzZXRSZWFsRGV2aWNlIiwiZGV2aWNlIiwib3B0cyIsImJ1bmRsZUlkIiwiZnVsbFJlc2V0IiwiZGVidWciLCJpc0FwcEluc3RhbGxlZCIsInJlbW92ZSIsImVycm9yIiwicnVuUmVhbERldmljZVJlc2V0Iiwibm9SZXNldCIsImluc3RhbGxUb1JlYWxEZXZpY2UiLCJhcHAiLCJ1ZGlkIiwiaW5zdGFsbCIsImdldFJlYWxEZXZpY2VPYmoiLCJJT1NEZXBsb3kiLCJjaGVja1N0YXR1cyIsImUiLCJlcnJvckFuZFRocm93Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7OztBQUFBOztBQUNBOztBQUNBOztBQUdBLGVBQWVBLG1CQUFmLEdBQXNDO0FBQ3BDLE1BQUk7QUFDRixRQUFJO0FBQUNDLE1BQUFBO0FBQUQsUUFBVyxNQUFNLHdCQUFLLFlBQUwsRUFBbUIsQ0FBQyxJQUFELENBQW5CLENBQXJCO0FBQ0EsV0FBT0EsTUFBTSxDQUFDQyxJQUFQLEdBQWNDLEtBQWQsQ0FBb0IsSUFBcEIsQ0FBUDtBQUNELEdBSEQsQ0FHRSxPQUFPQyxHQUFQLEVBQVk7QUFDWixRQUFJLENBQUNBLEdBQUcsQ0FBQ0MsT0FBSixDQUFZQyxRQUFaLENBQXNCLGdDQUF0QixDQUFMLEVBQTZEO0FBQzNELFlBQU1GLEdBQU47QUFDRDs7QUFDRCxVQUFNRyxHQUFHLEdBQUksZ0VBQUQsR0FDRCxpRUFEQyxHQUVELDBCQUZYOztBQUdBQyxvQkFBSUMsSUFBSixDQUFTRixHQUFUOztBQUNBLFdBQU8sRUFBUDtBQUNEO0FBQ0Y7O0FBRUQsZUFBZUcsZUFBZixDQUFnQ0MsTUFBaEMsRUFBd0NDLElBQXhDLEVBQThDO0FBQzVDLE1BQUksQ0FBQ0EsSUFBSSxDQUFDQyxRQUFOLElBQWtCLENBQUNELElBQUksQ0FBQ0UsU0FBNUIsRUFBdUM7QUFDckM7QUFDRDs7QUFFRCxNQUFJRCxRQUFRLEdBQUdELElBQUksQ0FBQ0MsUUFBcEI7O0FBQ0FMLGtCQUFJTyxLQUFKLENBQVcsOERBQTZERixRQUFTLElBQWpGOztBQUNBLE1BQUksRUFBQyxNQUFNRixNQUFNLENBQUNLLGNBQVAsQ0FBc0JILFFBQXRCLENBQVAsQ0FBSixFQUE0QztBQUMxQ0wsb0JBQUlPLEtBQUosQ0FBVSxnREFBVjs7QUFDQTtBQUNEOztBQUNELE1BQUk7QUFDRixVQUFNSixNQUFNLENBQUNNLE1BQVAsQ0FBY0osUUFBZCxDQUFOO0FBQ0QsR0FGRCxDQUVFLE9BQU9ULEdBQVAsRUFBWTtBQUNaSSxvQkFBSVUsS0FBSixDQUFXLDRCQUEyQkwsUUFBUyxrQkFBaUJULEdBQUcsQ0FBQ0MsT0FBUSxFQUE1RTs7QUFDQSxVQUFNRCxHQUFOO0FBQ0Q7O0FBQ0RJLGtCQUFJTyxLQUFKLENBQVcsbUJBQWtCRixRQUFTLEdBQXRDO0FBQ0Q7O0FBRUQsZUFBZU0sa0JBQWYsQ0FBbUNSLE1BQW5DLEVBQTJDQyxJQUEzQyxFQUFpRDtBQUMvQyxNQUFJLENBQUNBLElBQUksQ0FBQ1EsT0FBTixJQUFpQlIsSUFBSSxDQUFDRSxTQUExQixFQUFxQztBQUNuQ04sb0JBQUlPLEtBQUosQ0FBVSwyQ0FBVjs7QUFDQSxRQUFJLENBQUNILElBQUksQ0FBQ1EsT0FBVixFQUFtQjtBQUNqQixZQUFNVixlQUFlLENBQUNDLE1BQUQsRUFBU0MsSUFBVCxDQUFyQjtBQUNEO0FBQ0YsR0FMRCxNQUtPO0FBQ0xKLG9CQUFJTyxLQUFKLENBQVUseUNBQVY7QUFDRDtBQUNGOztBQUVELGVBQWVNLG1CQUFmLENBQW9DVixNQUFwQyxFQUE0Q1csR0FBNUMsRUFBaURULFFBQWpELEVBQTJETyxPQUFPLEdBQUcsSUFBckUsRUFBMkU7QUFDekUsTUFBSSxDQUFDVCxNQUFNLENBQUNZLElBQVIsSUFBZ0IsQ0FBQ0QsR0FBckIsRUFBMEI7QUFDeEJkLG9CQUFJTyxLQUFKLENBQVUscURBQVY7O0FBQ0E7QUFDRDs7QUFFRCxNQUFJLE1BQU1KLE1BQU0sQ0FBQ0ssY0FBUCxDQUFzQkgsUUFBdEIsQ0FBVixFQUEyQztBQUN6QyxRQUFJTyxPQUFKLEVBQWE7QUFDWFosc0JBQUlPLEtBQUosQ0FBVyxRQUFPRixRQUFTLCtDQUEzQjs7QUFDQTtBQUNEOztBQUNETCxvQkFBSU8sS0FBSixDQUFXLDBDQUF5Q0YsUUFBUyxtQkFBN0Q7O0FBQ0EsVUFBTUYsTUFBTSxDQUFDTSxNQUFQLENBQWNKLFFBQWQsQ0FBTjtBQUNEOztBQUNETCxrQkFBSU8sS0FBSixDQUFXLGVBQWNPLEdBQUksMEJBQXlCWCxNQUFNLENBQUNZLElBQUssTUFBbEU7O0FBQ0EsUUFBTVosTUFBTSxDQUFDYSxPQUFQLENBQWVGLEdBQWYsQ0FBTjs7QUFDQWQsa0JBQUlPLEtBQUosQ0FBVSwwQ0FBVjtBQUNEOztBQUVELGVBQWVVLGdCQUFmLENBQWlDRixJQUFqQyxFQUF1QztBQUNyQ2Ysa0JBQUlPLEtBQUosQ0FBVyxzQ0FBcUNRLElBQUssR0FBckQ7O0FBQ0EsTUFBSTtBQUVGLFFBQUlaLE1BQU0sR0FBRyxJQUFJZSxrQkFBSixDQUFjSCxJQUFkLENBQWI7QUFDQSxVQUFNWixNQUFNLENBQUNnQixXQUFQLEVBQU47QUFDQSxXQUFPaEIsTUFBUDtBQUNELEdBTEQsQ0FLRSxPQUFPaUIsQ0FBUCxFQUFVO0FBQ1YsUUFBSXJCLEdBQUcsR0FBRywrREFDQSx1REFEVjs7QUFFQUMsb0JBQUlxQixhQUFKLENBQWtCdEIsR0FBbEI7QUFDRDtBQUNGIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZXhlYyB9IGZyb20gJ3RlZW5fcHJvY2Vzcyc7XG5pbXBvcnQgSU9TRGVwbG95IGZyb20gJy4vaW9zLWRlcGxveSc7XG5pbXBvcnQgbG9nIGZyb20gJy4vbG9nZ2VyJztcblxuXG5hc3luYyBmdW5jdGlvbiBnZXRDb25uZWN0ZWREZXZpY2VzICgpIHtcbiAgdHJ5IHtcbiAgICBsZXQge3N0ZG91dH0gPSBhd2FpdCBleGVjKCdpZGV2aWNlX2lkJywgWyctbCddKTtcbiAgICByZXR1cm4gc3Rkb3V0LnRyaW0oKS5zcGxpdCgnXFxuJyk7XG4gIH0gY2F0Y2ggKGVycikge1xuICAgIGlmICghZXJyLm1lc3NhZ2UuaW5jbHVkZXMoYENvbW1hbmQgJ2lkZXZpY2VfaWQnIG5vdCBmb3VuZGApKSB7XG4gICAgICB0aHJvdyBlcnI7XG4gICAgfVxuICAgIGNvbnN0IG1zZyA9IGBUaGUgJ2lkZXZpY2VfaWQnIHByb2dyYW0gaXMgbm90IGluc3RhbGxlZC4gSWYgeW91IGFyZSBydW5uaW5nIGAgK1xuICAgICAgICAgICAgICBgYSByZWFsIGRldmljZSB0ZXN0IGl0IGlzIG5lY2Vzc2FyeS4gSW5zdGFsbCB3aXRoICdicmV3IGluc3RhbGwgYCArXG4gICAgICAgICAgICAgIGBsaWJpbW9iaWxlZGV2aWNlIC0tSEVBRCdgO1xuICAgIGxvZy53YXJuKG1zZyk7XG4gICAgcmV0dXJuIFtdO1xuICB9XG59XG5cbmFzeW5jIGZ1bmN0aW9uIHJlc2V0UmVhbERldmljZSAoZGV2aWNlLCBvcHRzKSB7XG4gIGlmICghb3B0cy5idW5kbGVJZCB8fCAhb3B0cy5mdWxsUmVzZXQpIHtcbiAgICByZXR1cm47XG4gIH1cblxuICBsZXQgYnVuZGxlSWQgPSBvcHRzLmJ1bmRsZUlkO1xuICBsb2cuZGVidWcoYFJlc2V0OiBmdWxsUmVzZXQgcmVxdWVzdGVkLiBXaWxsIHRyeSB0byB1bmluc3RhbGwgdGhlIGFwcCAnJHtidW5kbGVJZH0nLmApO1xuICBpZiAoIWF3YWl0IGRldmljZS5pc0FwcEluc3RhbGxlZChidW5kbGVJZCkpIHtcbiAgICBsb2cuZGVidWcoJ1Jlc2V0OiBhcHAgbm90IGluc3RhbGxlZC4gTm8gbmVlZCB0byB1bmluc3RhbGwnKTtcbiAgICByZXR1cm47XG4gIH1cbiAgdHJ5IHtcbiAgICBhd2FpdCBkZXZpY2UucmVtb3ZlKGJ1bmRsZUlkKTtcbiAgfSBjYXRjaCAoZXJyKSB7XG4gICAgbG9nLmVycm9yKGBSZXNldDogY291bGQgbm90IHJlbW92ZSAnJHtidW5kbGVJZH0nIGZyb20gZGV2aWNlOiAke2Vyci5tZXNzYWdlfWApO1xuICAgIHRocm93IGVycjtcbiAgfVxuICBsb2cuZGVidWcoYFJlc2V0OiByZW1vdmVkICcke2J1bmRsZUlkfSdgKTtcbn1cblxuYXN5bmMgZnVuY3Rpb24gcnVuUmVhbERldmljZVJlc2V0IChkZXZpY2UsIG9wdHMpIHtcbiAgaWYgKCFvcHRzLm5vUmVzZXQgfHwgb3B0cy5mdWxsUmVzZXQpIHtcbiAgICBsb2cuZGVidWcoJ1Jlc2V0OiBydW5uaW5nIGlvcyByZWFsIGRldmljZSByZXNldCBmbG93Jyk7XG4gICAgaWYgKCFvcHRzLm5vUmVzZXQpIHtcbiAgICAgIGF3YWl0IHJlc2V0UmVhbERldmljZShkZXZpY2UsIG9wdHMpO1xuICAgIH1cbiAgfSBlbHNlIHtcbiAgICBsb2cuZGVidWcoJ1Jlc2V0OiBmdWxsUmVzZXQgbm90IHNldC4gTGVhdmluZyBhcyBpcycpO1xuICB9XG59XG5cbmFzeW5jIGZ1bmN0aW9uIGluc3RhbGxUb1JlYWxEZXZpY2UgKGRldmljZSwgYXBwLCBidW5kbGVJZCwgbm9SZXNldCA9IHRydWUpIHtcbiAgaWYgKCFkZXZpY2UudWRpZCB8fCAhYXBwKSB7XG4gICAgbG9nLmRlYnVnKCdObyBkZXZpY2UgaWQgb3IgYXBwLCBub3QgaW5zdGFsbGluZyB0byByZWFsIGRldmljZS4nKTtcbiAgICByZXR1cm47XG4gIH1cblxuICBpZiAoYXdhaXQgZGV2aWNlLmlzQXBwSW5zdGFsbGVkKGJ1bmRsZUlkKSkge1xuICAgIGlmIChub1Jlc2V0KSB7XG4gICAgICBsb2cuZGVidWcoYEFwcCAnJHtidW5kbGVJZH0nIGlzIGFscmVhZHkgaW5zdGFsbGVkLiBObyBuZWVkIHRvIHJlaW5zdGFsbC5gKTtcbiAgICAgIHJldHVybjtcbiAgICB9XG4gICAgbG9nLmRlYnVnKGBSZXNldCByZXF1ZXN0ZWQuIFJlbW92aW5nIGFwcCB3aXRoIGlkICcke2J1bmRsZUlkfScgZnJvbSB0aGUgZGV2aWNlYCk7XG4gICAgYXdhaXQgZGV2aWNlLnJlbW92ZShidW5kbGVJZCk7XG4gIH1cbiAgbG9nLmRlYnVnKGBJbnN0YWxsaW5nICcke2FwcH0nIG9uIGRldmljZSB3aXRoIFVVSUQgJyR7ZGV2aWNlLnVkaWR9Jy4uLmApO1xuICBhd2FpdCBkZXZpY2UuaW5zdGFsbChhcHApO1xuICBsb2cuZGVidWcoJ1RoZSBhcHAgaGFzIGJlZW4gaW5zdGFsbGVkIHN1Y2Nlc3NmdWxseS4nKTtcbn1cblxuYXN5bmMgZnVuY3Rpb24gZ2V0UmVhbERldmljZU9iaiAodWRpZCkge1xuICBsb2cuZGVidWcoYENyZWF0aW5nIGlEZXZpY2Ugb2JqZWN0IHdpdGggdWRpZCAnJHt1ZGlkfSdgKTtcbiAgdHJ5IHtcbiAgICAvL1RoaXMgaURldmljZSBvYmplY3QgY291bGQgYmUgaWRldmljZWluc3RhbGxlciAobm9kZS1pZGV2aWNlKSBmb3IgZnV0dXJlIG9uY2Ugd2UgaGF2ZSBpZGV2aWNlaW5zdGFsbGVyIHdvcmtpbmcgZm9yIGlvcyAxMFxuICAgIGxldCBkZXZpY2UgPSBuZXcgSU9TRGVwbG95KHVkaWQpO1xuICAgIGF3YWl0IGRldmljZS5jaGVja1N0YXR1cygpO1xuICAgIHJldHVybiBkZXZpY2U7XG4gIH0gY2F0Y2ggKGUpIHtcbiAgICBsZXQgbXNnID0gJ0NvdWxkIG5vdCBpbml0aWFsaXplIGlvcy1kZXBsb3kgbWFrZSBzdXJlIGl0IGlzIGluc3RhbGxlZCAnICtcbiAgICAgICAgICAgICAgJyhucG0gaW5zdGFsbCAtZyBpb3MtZGVwbG95KSBhbmQgd29ya3Mgb24geW91ciBzeXN0ZW0uJztcbiAgICBsb2cuZXJyb3JBbmRUaHJvdyhtc2cpO1xuICB9XG59XG5cbmV4cG9ydCB7IGdldENvbm5lY3RlZERldmljZXMsIHJ1blJlYWxEZXZpY2VSZXNldCwgaW5zdGFsbFRvUmVhbERldmljZSxcbiAgZ2V0UmVhbERldmljZU9iaiB9O1xuIl0sImZpbGUiOiJsaWIvcmVhbC1kZXZpY2UtbWFuYWdlbWVudC5qcyIsInNvdXJjZVJvb3QiOiIuLi8uLiJ9

@@ -1,0 +1,44 @@
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.BOOT_COMPLETED_EVENT = exports.hasSSLCert = exports.uninstallSSLCert = exports.installSSLCert = exports.simExists = exports.endAllSimulatorDaemons = exports.killAllSimulators = exports.getDeviceString = exports.getSimulator = void 0;
+
+require("source-map-support/register");
+
+var sim = _interopRequireWildcard(require("./lib/simulator"));
+
+var utils = _interopRequireWildcard(require("./lib/utils"));
+
+var sim6 = _interopRequireWildcard(require("./lib/simulator-xcode-6"));
+
+const {
+  getSimulator,
+  getDeviceString
+} = sim;
+exports.getDeviceString = getDeviceString;
+exports.getSimulator = getSimulator;
+const {
+  killAllSimulators,
+  endAllSimulatorDaemons,
+  simExists,
+  installSSLCert,
+  uninstallSSLCert,
+  hasSSLCert
+} = utils;
+exports.hasSSLCert = hasSSLCert;
+exports.uninstallSSLCert = uninstallSSLCert;
+exports.installSSLCert = installSSLCert;
+exports.simExists = simExists;
+exports.endAllSimulatorDaemons = endAllSimulatorDaemons;
+exports.killAllSimulators = killAllSimulators;
+const {
+  BOOT_COMPLETED_EVENT
+} = sim6;
+exports.BOOT_COMPLETED_EVENT = BOOT_COMPLETED_EVENT;require('source-map-support').install();
+
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sIm5hbWVzIjpbImdldFNpbXVsYXRvciIsImdldERldmljZVN0cmluZyIsInNpbSIsImtpbGxBbGxTaW11bGF0b3JzIiwiZW5kQWxsU2ltdWxhdG9yRGFlbW9ucyIsInNpbUV4aXN0cyIsImluc3RhbGxTU0xDZXJ0IiwidW5pbnN0YWxsU1NMQ2VydCIsImhhc1NTTENlcnQiLCJ1dGlscyIsIkJPT1RfQ09NUExFVEVEX0VWRU5UIiwic2ltNiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7QUFFQTs7QUFDQTs7QUFDQTs7QUFHQSxNQUFNO0FBQUVBLEVBQUFBLFlBQUY7QUFBZ0JDLEVBQUFBO0FBQWhCLElBQW9DQyxHQUExQzs7O0FBQ0EsTUFBTTtBQUFFQyxFQUFBQSxpQkFBRjtBQUFxQkMsRUFBQUEsc0JBQXJCO0FBQTZDQyxFQUFBQSxTQUE3QztBQUF3REMsRUFBQUEsY0FBeEQ7QUFBd0VDLEVBQUFBLGdCQUF4RTtBQUEwRkMsRUFBQUE7QUFBMUYsSUFBeUdDLEtBQS9HOzs7Ozs7O0FBQ0EsTUFBTTtBQUFFQyxFQUFBQTtBQUFGLElBQTJCQyxJQUFqQyIsInNvdXJjZXNDb250ZW50IjpbIi8vIHRyYW5zcGlsZTptYWluXG5cbmltcG9ydCAqIGFzIHNpbSBmcm9tICcuL2xpYi9zaW11bGF0b3InO1xuaW1wb3J0ICogYXMgdXRpbHMgZnJvbSAnLi9saWIvdXRpbHMnO1xuaW1wb3J0ICogYXMgc2ltNiBmcm9tICcuL2xpYi9zaW11bGF0b3IteGNvZGUtNic7XG5cblxuY29uc3QgeyBnZXRTaW11bGF0b3IsIGdldERldmljZVN0cmluZyB9ID0gc2ltO1xuY29uc3QgeyBraWxsQWxsU2ltdWxhdG9ycywgZW5kQWxsU2ltdWxhdG9yRGFlbW9ucywgc2ltRXhpc3RzLCBpbnN0YWxsU1NMQ2VydCwgdW5pbnN0YWxsU1NMQ2VydCwgaGFzU1NMQ2VydCB9ID0gdXRpbHM7XG5jb25zdCB7IEJPT1RfQ09NUExFVEVEX0VWRU5UIH0gPSBzaW02O1xuXG5leHBvcnQge1xuICBnZXRTaW11bGF0b3IsXG4gIGdldERldmljZVN0cmluZyxcbiAga2lsbEFsbFNpbXVsYXRvcnMsXG4gIGVuZEFsbFNpbXVsYXRvckRhZW1vbnMsXG4gIHNpbUV4aXN0cyxcbiAgaW5zdGFsbFNTTENlcnQsXG4gIHVuaW5zdGFsbFNTTENlcnQsXG4gIGhhc1NTTENlcnQsXG4gIEJPT1RfQ09NUExFVEVEX0VWRU5UXG59O1xuIl0sImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZVJvb3QiOiIuLiJ9

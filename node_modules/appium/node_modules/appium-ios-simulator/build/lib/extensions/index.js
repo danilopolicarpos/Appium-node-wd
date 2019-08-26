@@ -1,0 +1,27 @@
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("source-map-support/register");
+
+var _prepareApps = _interopRequireDefault(require("./prepare-apps"));
+
+var _isolateSim = require("./isolate-sim");
+
+let extensions = {};
+let allExtensions = [_prepareApps.default, _isolateSim.extensions];
+
+for (let obj of allExtensions) {
+  Object.assign(extensions, obj);
+}
+
+var _default = extensions;
+exports.default = _default;require('source-map-support').install();
+
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9leHRlbnNpb25zL2luZGV4LmpzIl0sIm5hbWVzIjpbImV4dGVuc2lvbnMiLCJhbGxFeHRlbnNpb25zIiwicHJlcGFyZUFwcHNFeHRlbnNpb25zIiwiaXNvbGF0ZUV4dGVuc2lvbnMiLCJvYmoiLCJPYmplY3QiLCJhc3NpZ24iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O0FBQUE7O0FBQ0E7O0FBR0EsSUFBSUEsVUFBVSxHQUFHLEVBQWpCO0FBRUEsSUFBSUMsYUFBYSxHQUFHLENBQUNDLG9CQUFELEVBQXdCQyxzQkFBeEIsQ0FBcEI7O0FBQ0EsS0FBSyxJQUFJQyxHQUFULElBQWdCSCxhQUFoQixFQUErQjtBQUM3QkksRUFBQUEsTUFBTSxDQUFDQyxNQUFQLENBQWNOLFVBQWQsRUFBMEJJLEdBQTFCO0FBQ0Q7O2VBRWNKLFUiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgcHJlcGFyZUFwcHNFeHRlbnNpb25zIGZyb20gJy4vcHJlcGFyZS1hcHBzJztcbmltcG9ydCB7IGV4dGVuc2lvbnMgYXMgaXNvbGF0ZUV4dGVuc2lvbnMgfSBmcm9tICcuL2lzb2xhdGUtc2ltJztcblxuXG5sZXQgZXh0ZW5zaW9ucyA9IHt9O1xuXG5sZXQgYWxsRXh0ZW5zaW9ucyA9IFtwcmVwYXJlQXBwc0V4dGVuc2lvbnMsIGlzb2xhdGVFeHRlbnNpb25zXTtcbmZvciAobGV0IG9iaiBvZiBhbGxFeHRlbnNpb25zKSB7XG4gIE9iamVjdC5hc3NpZ24oZXh0ZW5zaW9ucywgb2JqKTtcbn1cblxuZXhwb3J0IGRlZmF1bHQgZXh0ZW5zaW9ucztcbiJdLCJmaWxlIjoibGliL2V4dGVuc2lvbnMvaW5kZXguanMiLCJzb3VyY2VSb290IjoiLi4vLi4vLi4ifQ==

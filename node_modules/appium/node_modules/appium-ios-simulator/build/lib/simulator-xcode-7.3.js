@@ -1,0 +1,26 @@
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("source-map-support/register");
+
+var _simulatorXcode = _interopRequireDefault(require("./simulator-xcode-7"));
+
+class SimulatorXcode73 extends _simulatorXcode.default {
+  constructor(udid, xcodeVersion) {
+    super(udid, xcodeVersion);
+    this.isFreshFiles = ['Library/Cookies', 'Library/Preferences/.GlobalPreferences.plist', 'Library/Preferences/com.apple.springboard.plist', 'var/run/syslog.pid'];
+  }
+
+}
+
+var _default = SimulatorXcode73;
+exports.default = _default;require('source-map-support').install();
+
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9zaW11bGF0b3IteGNvZGUtNy4zLmpzIl0sIm5hbWVzIjpbIlNpbXVsYXRvclhjb2RlNzMiLCJTaW11bGF0b3JYY29kZTciLCJjb25zdHJ1Y3RvciIsInVkaWQiLCJ4Y29kZVZlcnNpb24iLCJpc0ZyZXNoRmlsZXMiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O0FBQUE7O0FBR0EsTUFBTUEsZ0JBQU4sU0FBK0JDLHVCQUEvQixDQUErQztBQUU3Q0MsRUFBQUEsV0FBVyxDQUFFQyxJQUFGLEVBQVFDLFlBQVIsRUFBc0I7QUFDL0IsVUFBTUQsSUFBTixFQUFZQyxZQUFaO0FBRUEsU0FBS0MsWUFBTCxHQUFvQixDQUNsQixpQkFEa0IsRUFFbEIsOENBRmtCLEVBR2xCLGlEQUhrQixFQUlsQixvQkFKa0IsQ0FBcEI7QUFNRDs7QUFYNEM7O2VBY2hDTCxnQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBTaW11bGF0b3JYY29kZTcgZnJvbSAnLi9zaW11bGF0b3IteGNvZGUtNyc7XG5cblxuY2xhc3MgU2ltdWxhdG9yWGNvZGU3MyBleHRlbmRzIFNpbXVsYXRvclhjb2RlNyB7XG5cbiAgY29uc3RydWN0b3IgKHVkaWQsIHhjb2RlVmVyc2lvbikge1xuICAgIHN1cGVyKHVkaWQsIHhjb2RlVmVyc2lvbik7XG5cbiAgICB0aGlzLmlzRnJlc2hGaWxlcyA9IFtcbiAgICAgICdMaWJyYXJ5L0Nvb2tpZXMnLFxuICAgICAgJ0xpYnJhcnkvUHJlZmVyZW5jZXMvLkdsb2JhbFByZWZlcmVuY2VzLnBsaXN0JyxcbiAgICAgICdMaWJyYXJ5L1ByZWZlcmVuY2VzL2NvbS5hcHBsZS5zcHJpbmdib2FyZC5wbGlzdCcsXG4gICAgICAndmFyL3J1bi9zeXNsb2cucGlkJ1xuICAgIF07XG4gIH1cbn1cblxuZXhwb3J0IGRlZmF1bHQgU2ltdWxhdG9yWGNvZGU3MztcbiJdLCJmaWxlIjoibGliL3NpbXVsYXRvci14Y29kZS03LjMuanMiLCJzb3VyY2VSb290IjoiLi4vLi4ifQ==

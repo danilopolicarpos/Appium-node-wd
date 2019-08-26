@@ -1,0 +1,27 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("source-map-support/register");
+
+let helpers = {};
+
+helpers.ensureInternetPermissionForApp = async function ensureInternetPermissionForApp(adb, app) {
+  let has = await adb.hasInternetPermissionFromManifest(app);
+
+  if (has) {
+    return;
+  }
+
+  let msg = 'Your apk does not have INTERNET permissions. Selendroid needs ' + 'the internet permission to proceed. Please check if you have ' + '<uses-permission android:name="android.**permission.INTERNET"/>' + 'in your AndroidManifest.xml';
+  throw new Error(msg);
+};
+
+var _default = helpers;
+exports.default = _default;require('source-map-support').install();
+
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9oZWxwZXJzLmpzIl0sIm5hbWVzIjpbImhlbHBlcnMiLCJlbnN1cmVJbnRlcm5ldFBlcm1pc3Npb25Gb3JBcHAiLCJhZGIiLCJhcHAiLCJoYXMiLCJoYXNJbnRlcm5ldFBlcm1pc3Npb25Gcm9tTWFuaWZlc3QiLCJtc2ciLCJFcnJvciJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBQUEsSUFBSUEsT0FBTyxHQUFHLEVBQWQ7O0FBRUFBLE9BQU8sQ0FBQ0MsOEJBQVIsR0FBeUMsZUFBZUEsOEJBQWYsQ0FBK0NDLEdBQS9DLEVBQW9EQyxHQUFwRCxFQUF5RDtBQUNoRyxNQUFJQyxHQUFHLEdBQUcsTUFBTUYsR0FBRyxDQUFDRyxpQ0FBSixDQUFzQ0YsR0FBdEMsQ0FBaEI7O0FBQ0EsTUFBSUMsR0FBSixFQUFTO0FBQ1A7QUFDRDs7QUFDRCxNQUFJRSxHQUFHLEdBQUcsbUVBQ0EsK0RBREEsR0FFQSxpRUFGQSxHQUdBLDZCQUhWO0FBSUEsUUFBTSxJQUFJQyxLQUFKLENBQVVELEdBQVYsQ0FBTjtBQUNELENBVkQ7O2VBWWVOLE8iLCJzb3VyY2VzQ29udGVudCI6WyJsZXQgaGVscGVycyA9IHt9O1xuXG5oZWxwZXJzLmVuc3VyZUludGVybmV0UGVybWlzc2lvbkZvckFwcCA9IGFzeW5jIGZ1bmN0aW9uIGVuc3VyZUludGVybmV0UGVybWlzc2lvbkZvckFwcCAoYWRiLCBhcHApIHtcbiAgbGV0IGhhcyA9IGF3YWl0IGFkYi5oYXNJbnRlcm5ldFBlcm1pc3Npb25Gcm9tTWFuaWZlc3QoYXBwKTtcbiAgaWYgKGhhcykge1xuICAgIHJldHVybjtcbiAgfVxuICBsZXQgbXNnID0gJ1lvdXIgYXBrIGRvZXMgbm90IGhhdmUgSU5URVJORVQgcGVybWlzc2lvbnMuIFNlbGVuZHJvaWQgbmVlZHMgJyArXG4gICAgICAgICAgICAndGhlIGludGVybmV0IHBlcm1pc3Npb24gdG8gcHJvY2VlZC4gUGxlYXNlIGNoZWNrIGlmIHlvdSBoYXZlICcgK1xuICAgICAgICAgICAgJzx1c2VzLXBlcm1pc3Npb24gYW5kcm9pZDpuYW1lPVwiYW5kcm9pZC4qKnBlcm1pc3Npb24uSU5URVJORVRcIi8+JyArXG4gICAgICAgICAgICAnaW4geW91ciBBbmRyb2lkTWFuaWZlc3QueG1sJztcbiAgdGhyb3cgbmV3IEVycm9yKG1zZyk7XG59O1xuXG5leHBvcnQgZGVmYXVsdCBoZWxwZXJzO1xuIl0sImZpbGUiOiJsaWIvaGVscGVycy5qcyIsInNvdXJjZVJvb3QiOiIuLi8uLiJ9
