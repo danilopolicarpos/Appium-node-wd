@@ -5,7 +5,7 @@ Funcionalidade: Api demo
   Estou realizando alguns testes com appium, cucumber em Javascript
   para poder avaliar o uso no dia - a - dia
 
-  Cenário: Realizar uma busca por titulo do filme
+  Cenário: Acessar menus na tela principal da aplicação
     Dado que estou na tela principal da Api demo
     Quando tocar em uma opção desejada
     Então vejo o resultado da busca
