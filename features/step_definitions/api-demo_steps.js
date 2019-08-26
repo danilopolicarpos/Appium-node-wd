@@ -1,4 +1,4 @@
-const wd = require('wd');
+
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
 const { Before, After } = require('../support/hook')

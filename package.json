@@ -6,19 +6,20 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/instruments",
-    "cucumber": "cucumber-js features/*.feature",
+    "cucumber": "cucumber-js features/*.feature -f json:reports/cucumber_report.json",
     "clean": "rm -rf node_modules && rm -f package-lock.json && npm install",
     "appium": "appium",
     "appium-doctor": "appium-doctor"
   },
   "devDependencies": {
+    "appium": "^1.10.1",
+    "appium-doctor": "^1.9.0",
     "assert": "^2.0.0",
     "chai": "^4.1.2",
     "cucumber": "^4.2.1",
     "mocha": "^6.0.0",
-    "webdriverio": "^5.1.0",
-    "appium": "^1.10.1",
-    "appium-doctor": "^1.9.0",
-    "wd": "^1.11.1"
+    "multiple-cucumber-html-reporter": "^1.12.1",
+    "wd": "^1.11.1",
+    "webdriverio": "^5.1.0"
   }
 }
