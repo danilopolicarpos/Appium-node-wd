@@ -1,20 +1,21 @@
 
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
-const { Before, After } = require('../support/hook')
 const { driver } = require('../../capabilities/android.capabilities')
+const Api_Page = require('../page_objects/api-demo_screen');
+const Api = new Api_Page();
 
 Given('que estou na tela principal da Api demo', async () =>  {
-  await driver.elementById("android:id/list").isDisplayed();
+  await driver.elementById(Api.home).isDisplayed();
   });
        
 When('tocar em uma opção desejada', async () =>  {
-  let element = await driver.elementById("android:id/text1");
+  let element = await driver.elementById(Api.home);
   await element.click();
 });
        
 Then('vejo o resultado da busca', async () => {
-  await driver.elementById("android:id/text1")
+  await driver.elementById(Api.home)
 });
 
 
