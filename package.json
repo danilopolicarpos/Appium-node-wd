@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/instruments",
-    "cucumber": "cucumber-js features/*.feature ",
+    "cucumber": "cucumber-js features/*.feature -f summary -f json:report/cucumber_report.json",
     "clean": "rm -rf node_modules && rm -f package-lock.json && npm install",
     "appium": "appium",
     "appium-doctor": "appium-doctor"
@@ -21,5 +21,8 @@
     "multiple-cucumber-html-reporter": "^1.12.1",
     "wd": "^1.11.1",
     "webdriverio": "^5.1.0"
+  },
+  "dependencies": {
+    "cucumber-html-reporter": "^5.0.0"
   }
 }
