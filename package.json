@@ -8,7 +8,7 @@
     "test": "mocha test/instruments",
     "cucumber": "cucumber-js features/*.feature -f summary -f json:report/cucumber_report.json",
     "clean": "rm -rf node_modules && rm -f package-lock.json && npm install",
-    "appium": "nohup appium &",
+    "appium": "appium",
     "appium-doctor": "appium-doctor"
   },
   "devDependencies": {
