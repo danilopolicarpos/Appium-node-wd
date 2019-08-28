@@ -1,4 +1,4 @@
-## Appium Cucumberjs more node.js
+## Appium Cucumberjs more Node.js
 
 # Install package
 ```

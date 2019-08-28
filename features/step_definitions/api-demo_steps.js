@@ -2,7 +2,7 @@
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
 const { driver } = require('../../capabilities/android.capabilities')
-const Api_Page = require('../page_objects/api-demo_screen');
+const Api_Page = require('../android/page_objects/api-demo_screen');
 const Api = new Api_Page();
 
 Given('que estou na tela principal da Api demo', async () =>  {

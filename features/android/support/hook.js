@@ -1,5 +1,5 @@
 const { Before, After } = require('cucumber');
-const {config, driver} = require('../../capabilities/android.capabilities')
+const {config, driver} = require('../../../capabilities/android.capabilities')
 
 Before({timeout: 80000}, async () => {
     await driver.init(config);
