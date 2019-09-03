@@ -1,4 +1,4 @@
-## Appium Cucumberjs more Node.js
+## Appium Cucumber-js more Javascript-wd
 
 # Install package
 ```
