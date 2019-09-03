@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/instruments",
-    "cucumber": "cucumber-js features/*.feature -f summary -f json:report/cucumber_report.json",
+    "cucumber": "cucumber-js features/*.feature --exclude features/ios",
     "clean": "rm -rf node_modules && rm -f package-lock.json && npm install",
     "appium": "appium",
     "appium-doctor": "appium-doctor"
