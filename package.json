@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/instruments",
-    "cucumber": "cucumber-js features/*.feature --exclude features/ios",
+    "android_test": "cucumber-js features/*.feature PLATFORM=android -r features/support -r features/android -r features/step_definitions --exclude features/ios",
+    "ios_test": "cucumber-js features/*.feature PLATFORM=ios -r features/support -r features/ios -r features/step_definitions --exclude features/android",
     "clean": "rm -rf node_modules && rm -f package-lock.json && npm install",
     "appium": "appium",
     "appium-doctor": "appium-doctor"

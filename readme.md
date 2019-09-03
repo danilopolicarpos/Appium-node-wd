@@ -15,8 +15,14 @@ npm run appium-doctor
 
 # Run Android Test and generate reports
 ```
-npm run cucumber 
+npm run android_test
 ```
+
+# Run iOS Test and generate reports
+```
+npm run ios_test
+```
+
 
 # References
 - https://github.com/admc/wd
@@ -24,5 +30,5 @@ npm run cucumber
 - https://github.com/cucumber/cucumber-js
 - https://www.npmjs.com/package/cucumber-html-reporter
 
-
-
+# See Promise 
+console.log(driver.elementById(Api.home))
