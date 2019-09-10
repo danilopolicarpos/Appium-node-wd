@@ -1,8 +1,22 @@
+'use strict'
+
+var profile = process.env.NODE_ENV
+switch (profile) {
+  case 'PLATFORM=ios':
+    var { driver } = require('../../capabilities/ios.caps')
+    var Api_Page = require('../ios/page_objects/api-demo_screen')
+    break;
+    case 'PLATFORM=android':
+      var { driver } = require('../../capabilities/android.caps') 
+      var Api_Page = require('../android/page_objects/api-demo_screen')
+      break;
+   
+  default:
+    console.log('Sorry, we are out of ' + profile + '.');
+}
 
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
-const { driver } = require('../../capabilities/android.caps') && require('../../capabilities/ios.caps')
-const Api_Page = require('../android/page_objects/api-demo_screen') && require('../ios/page_objects/api-demo_screen')
 const Api = new Api_Page();
 
 Given('que estou na tela principal da Api demo', async () => {
